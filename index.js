@@ -34,75 +34,120 @@
 
 //####################################################################################################################################################################//
 
+//console.log(herramientas)
+
+//class herramienta {
+//   constructor (id,producto,precio,peso,categoria,oferta) {
+ //     this.id = id
+ //     this.producto = producto
+ //     this.precio = precio 
+ //     this.peso = peso
+ //     this.categoria = categoria 
+ //     this.oferta = oferta 
+//   }
+//}
+
+//const herramienta20 = new herramienta ( 20,"pistola de silicona",1345,"0.430 kg", " oulet",true)
+//const herramienta21 = new herramienta ( 21,"martillo antirebote",6545,"1.300 kg", " oulet",true,)
+//const herramienta22 = new herramienta ( 22,"arco de sierra 300mm",5310,"0.230 kg", " oulet",true)
+//const herramienta23 = new herramienta ( 23,"cortadora de ceramica",21345,"2.430 kg", "oulet",true)
+
+//herramientas.push(herramienta20)
+//herramientas.push(herramienta21)
+//herramientas.push(herramienta22)
+//herramientas.push(herramienta23)
+
+
+
+//console.table(herramientas)
+
+//const copiaHerramientas = herramientas.map( (her) =>{
+//   return her
+//})
+//console.log(copiaHerramientas)
+
+
+//herramientas.forEach ( (buscaOferta)  =>{
+//   if (buscaOferta.oferta === true)
+//   console.log(buscaOferta.precio *0.90)
+//})
+
+
+//const herramientasOulet = herramientas.filter( (ofer)  => {
+//   return ofer.oferta == true
+
+//})
+//console.log (herramientasOulet)
+
+
+
+//const herramientaDeMano = herramientasOulet.find ( (herr) => {
+//   return herr.precio >= 23000
+//
+//}
+//)
+//console.log(herramientaDeMano)
+
+//let  ofertas = confirm("desea ver nuestras ofertas")
+//     if (ofertas === true){
+//      herramientas.filter ( (produc) => {
+ //        if (produc.oferta === true ){
+ //           console.log(produc)
+ //        }
+//      })
+//     }
+
+//############################################################################################//
 console.log(herramientas)
 
-class herramienta {
-   constructor (id,producto,precio,peso,categoria,oferta) {
-      this.id = id
-      this.producto = producto
-      this.precio = precio 
-      this.peso = peso
-      this.categoria = categoria 
-      this.oferta = oferta 
-   }
+const carro = []
+
+const contenedor = document.querySelector(".contenedor")
+
+const herramientasAHtml = (array) => {
+   const arrayselecto = array.reduce ( (acum, herramienta) => {
+      return acum + `
+             <div class="cont" id=${herramienta.id}>
+                 <div class="img">
+                      <Img src=${herramienta.img} alt=${herramienta.producto}>
+                 </div>    
+                 <h2>
+                     ${herramienta.producto}  
+                 </h2>
+                 <h2>
+                     precio: ${herramienta.precio}
+                 </h2>
+                 <button class="boton" id=${herramienta.id}>comprar</button>  
+             </div>           
+      `
+   }, "")
+   return arrayselecto
+}
+const local =( idem, valor ) => {
+   return localStorage.setItem(idem, JSON.stringify(valor))
+}
+const subirArray = ( array, elemento) => {
+   array.push(elemento)
 }
 
-const herramienta20 = new herramienta ( 20,"pistola de silicona",1345,"0.430 kg", " oulet",true)
-const herramienta21 = new herramienta ( 21,"martillo antirebote",6545,"1.300 kg", " oulet",true,)
-const herramienta22 = new herramienta ( 22,"arco de sierra 300mm",5310,"0.230 kg", " oulet",true)
-const herramienta23 = new herramienta ( 23,"cortadora de ceramica",21345,"2.430 kg", "oulet",true)
 
-herramientas.push(herramienta20)
-herramientas.push(herramienta21)
-herramientas.push(herramienta22)
-herramientas.push(herramienta23)
+contenedor.innerHTML = herramientasAHtml(herramientas)
 
-
-
-console.table(herramientas)
-
-const copiaHerramientas = herramientas.map( (her) =>{
-   return her
-})
-console.log(copiaHerramientas)
-
-
-herramientas.forEach ( (buscaOferta)  =>{
-   if (buscaOferta.oferta === true)
-   console.log(buscaOferta.precio *0.90)
-})
-
-
-const herramientasOulet = herramientas.filter( (ofer)  => {
-   return ofer.oferta == true
-
-})
-console.log (herramientasOulet)
-
-
-
-const herramientaDeMano = herramientasOulet.find ( (herr) => {
-   return herr.precio >= 23000
-
+const agregarcarro = () => {
+   const botones = document.querySelectorAll(".boton")
+   botones.forEach( herramienta => {
+      herramienta.onclick = () => {
+         const buscaHerramienta = herramientas.find( producto => {
+             return producto.id === Number(herramienta.id)
+         })
+         subirArray(carro, buscaHerramienta)
+         console.log(carro)
+         local("carro", carro)
+      }
+   })
 }
-)
-console.log(herramientaDeMano)
 
-let  ofertas = confirm("desea ver nuestras ofertas")
-     if (ofertas === true){
-      herramientas.filter ( (produc) => {
-         if (produc.oferta === true ){
-            console.log(produc)
-         }
-      })
-     }
-
-
-
-
-
-
-
+agregarcarro()
 
 
 
